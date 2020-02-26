@@ -14,6 +14,7 @@ class DetailsViewController: UIViewController {
     
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var labelName: UILabel!
+    @IBOutlet weak var labelTypes: UILabel!
     
     
     //MARK: - Variables
@@ -24,15 +25,20 @@ class DetailsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel?.setDetails(handler: { (imageData, name) in
-            self.labelName.text = name
-            
-            let image = UIImage(data: imageData)
-            self.imageView.image = image
+        setUpOutlets()
+        viewModel?.setDetails(handler: { (pokemon) in
+            self.labelName.text = pokemon.name
+            self.labelTypes.text = pokemon.types
+            self.imageView.image = UIImage(data: pokemon.image)
         })
         
     }
     
     //MARK: - Methods
+    
+    func setUpOutlets(){
+        self.imageView.layer.cornerRadius = 170
+        self.labelTypes.text = ""
+    }
 
 }

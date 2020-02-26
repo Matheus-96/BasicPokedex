@@ -31,6 +31,24 @@ class APIService {
         
     }
     
+    func fetchPokemonInfo(pokemonIndex: Int, sucess: @escaping ([Any]) -> () ) {
+        
+        let urlPokemon = "https://pokeapi.co/api/v2/pokemon/\(pokemonIndex)/"
+        
+        Alamofire.request(urlPokemon).responseJSON { (response) in
+            guard let data = response.data else {return}
+            let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String:Any]
+            guard let infos = json else {return}
+            if let types = infos["types"] as? [Any] {
+                DispatchQueue.main.async {
+                    sucess(types)
+                }
+            }
+            
+        }
+        
+    }
+    
     func fetchImage(pokemonIndex : Int, sucess : @escaping (Data) -> Void ){
         
         let urlImage = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/\(pokemonIndex).png"

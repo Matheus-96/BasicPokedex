@@ -37,7 +37,7 @@ class PokemonListTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
 
         let name = viewModel.pokemonAtIndex(indexPath: indexPath)
-        cell.textLabel?.text = name
+        cell.textLabel?.text = name.firstUppercased
 
         return cell
     }
