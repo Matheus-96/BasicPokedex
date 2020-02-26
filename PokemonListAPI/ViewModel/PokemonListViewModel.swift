@@ -16,26 +16,41 @@ protocol PokemonListProtocol {
     func setSelectedPokemon(indexPath : IndexPath)
     func getSelectedPokemon() -> String
     func getId() -> Int
+    func searchPokemon(text: String)
+    func setNewId(name: String)
 }
 
 class PokemonListViewModel : PokemonListProtocol {
     
     //MARK: - Variables
     
-    private var pokemonArray = [Any]()
+    private var pokemonArray = [String]()
     private var apiService = APIService()
     private var selectedPokemon:String = ""
     private var pokemonID : Int = 0
+    
+    private var pokeArray = [String]()
 
     //MARK: - Methods
     
     func getPokemon( sucess: @escaping () -> Void ){
         
         apiService.fetchPokemons { (pokemon) in
-            self.pokemonArray = pokemon
+            self.createArrayPokemons(array: pokemon)
             sucess()
         }
+    }
+    
+    func createArrayPokemons(array: [Any]){
         
+        var pokemons = [String]()
+        let arrayDic = array as! Array<[String:String]>
+        for element in arrayDic{
+            let poke = element["name"]
+            pokemons.append(poke!)
+        }
+        self.pokeArray = pokemons
+        self.searchPokemon()
     }
     
     func countPokemon() -> Int {
@@ -43,15 +58,13 @@ class PokemonListViewModel : PokemonListProtocol {
     }
     
     func pokemonAtIndex(indexPath : IndexPath) -> String {
-        
-        let pokemon = pokemonArray[indexPath.row] as! [String:String]
-        let namePokemon = pokemon["name"]
-        return namePokemon!
+        let pokemon = pokemonArray[indexPath.row]
+        return pokemon
     }
+    
     func setSelectedPokemon(indexPath : IndexPath) {
-        let pokemon =  pokemonArray[indexPath.row] as! [String:String]
-        self.selectedPokemon = pokemon["name"]!
-        self.pokemonID = indexPath.row + 1
+        let pokemon =  pokemonArray[indexPath.row]
+        self.selectedPokemon = pokemon
     }
     
     func getSelectedPokemon() -> String {
@@ -60,6 +73,23 @@ class PokemonListViewModel : PokemonListProtocol {
     
     func getId() -> Int{
         return pokemonID
+    }
+    
+    func searchPokemon(text: String = ""){
+        
+        if text != ""{
+            pokemonArray = pokeArray.filter { (aux:String) -> Bool in
+                return aux.range(of: text, options: .caseInsensitive, range: nil, locale: nil) != nil
+            }
+        } else {
+            pokemonArray = pokeArray
+        }
+    }
+    
+    func setNewId(name: String){
+        let index = pokeArray.firstIndex(of: name)!
+        self.pokemonID = index + 1
+        
     }
     
 }
