@@ -25,10 +25,8 @@ class APIService {
                 DispatchQueue.main.async {
                     sucess(pokemons)
                 }
-                
             }
         }
-        
     }
     
     func fetchPokemonInfo(pokemonIndex: Int, sucess: @escaping ([Any]) -> () ) {
@@ -44,9 +42,7 @@ class APIService {
                     sucess(types)
                 }
             }
-            
         }
-        
     }
     
     func fetchImage(pokemonIndex : Int, sucess : @escaping (Data) -> Void ){
@@ -56,9 +52,22 @@ class APIService {
         DispatchQueue.main.async {
             Alamofire.request(urlImage).responseData { (responseData) in
                 guard let imageData = responseData.data else {return}
-                
                 sucess(imageData)
             }
+        }
+    }
+    
+    func fetchPokedexEntry(pokemonIndex: Int, sucess : @escaping ([[String:Any]]) -> () ){
+        
+        let urlEntrys = "https://pokeapi.co/api/v2/pokemon-species/\(pokemonIndex)/"
+        Alamofire.request(urlEntrys).responseData { (response) in
+            guard let data = response.data else { return }
+            let json = try? JSONSerialization.jsonObject(with: data, options: [] ) as? [String:Any]
+            let entrysDicionaty = json!["flavor_text_entries"] as? [[String:Any]]
+            DispatchQueue.main.async {
+                sucess(entrysDicionaty!)
+            }
+            
         }
         
         

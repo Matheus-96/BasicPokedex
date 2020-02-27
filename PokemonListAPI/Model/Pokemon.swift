@@ -13,8 +13,9 @@ class Pokemon {
     let name: String
     let image: Data
     var types : String
+    let description:String
     
-    init (name: String, image: Data, types: [String]){
+    init (name: String, image: Data, types: [String], description: String){
         self.name = name
         self.image = image
         
@@ -23,6 +24,8 @@ class Pokemon {
         } else {
             self.types = types[1] + " / " + types[0]
         }
+        
+        self.description = description
         
     }
     

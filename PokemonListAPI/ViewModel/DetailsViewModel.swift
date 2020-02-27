@@ -45,10 +45,24 @@ class DetailsViewModel : DetailsProtocol {
                 let type = aux!["name"]! as String
                 types.append(type.firstUppercased)
             }
-            print(types)
             self.apiService.fetchImage(pokemonIndex: self.pokemonID) { (data) in
-                self.pokemon = Pokemon(name: self.name.firstUppercased, image: data, types: types)
-                handler(self.pokemon!)
+                let imageData = data
+                self.apiService.fetchPokedexEntry(pokemonIndex: self.pokemonID) { (dictionary) in
+                    for element in dictionary {
+                        
+                        let language = element["language"] as! [String:String]
+                        let idiom = language["name"]
+                        if idiom == "en"{
+                            var description = element["flavor_text"] as! String
+                            description = description.replacingOccurrences(of: "\n", with: "", options: NSString.CompareOptions.literal, range: nil)
+                            self.pokemon = Pokemon(name: self.name.firstUppercased, image: imageData, types: types, description: description)
+                            handler(self.pokemon!)
+                            break
+                        }
+                        
+                    }
+                }
+                
             }
             
             

@@ -1,31 +1,33 @@
 //
-//  PokemonListTableViewController.swift
+//  PokeListViewController.swift
 //  PokemonListAPI
 //
-//  Created by Matheus Rodrigues Araujo on 21/02/20.
+//  Created by Matheus Rodrigues Araujo on 27/02/20.
 //  Copyright © 2020 Curso IOS. All rights reserved.
 //
 
 import UIKit
 
-class PokemonListTableViewController: UITableViewController, UISearchBarDelegate {
+class PokeListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     
+    //MARK: - Outlets
     
+    @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var tableView: UITableView!
     
     //MARK: - Variables
     
     let viewModel : PokemonListProtocol = PokemonListViewModel()
-    var searchController = UISearchBar(frame: CGRect(x: 0, y: 0, width: 1, height: 50))
-    
     
     //MARK: - View LifeCycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Pokemon List"
+        searchBar.delegate = self
         
-        searchController.delegate = self
-        self.tableView.tableHeaderView = searchController
+        tableView.delegate = self
+        tableView.dataSource = self
         
         viewModel.getPokemon {
             self.tableView.reloadData()
@@ -34,43 +36,38 @@ class PokemonListTableViewController: UITableViewController, UISearchBarDelegate
     
     override func viewWillAppear(_ animated: Bool) {
         viewModel.searchPokemon(text: "")
-        searchController.text = ""
+        searchBar.text = ""
         self.tableView.reloadData()
     }
     
-    //MARK: - Search bar methods
+    //MARK: - TableView Methods
     
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if let text = searchController.text {
-            print(text)
-            viewModel.searchPokemon(text: text)
-            self.tableView.reloadData()
-        }
-    }
-
-    // MARK: - Table View Methods
-
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.countPokemon()
     }
-
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cellIdentifier", for: indexPath)
         let name = viewModel.pokemonAtIndex(indexPath: indexPath)
         cell.textLabel?.text = name.firstUppercased
-
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let name = viewModel.pokemonAtIndex(indexPath: indexPath)
         viewModel.setNewId(name: name)
         viewModel.setSelectedPokemon(indexPath: indexPath)
         performSegue(withIdentifier: "details", sender: nil)
-        
+    }
+    
+    //MARK: - Search Bar Methods
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if let text = searchBar.text {
+            viewModel.searchPokemon(text: text)
+            self.tableView.reloadData()
+        }
     }
     
     //MARK: - Navigation
@@ -86,5 +83,5 @@ class PokemonListTableViewController: UITableViewController, UISearchBarDelegate
         }
         
     }
-
+    
 }

@@ -50,6 +50,7 @@ class PokemonListViewModel : PokemonListProtocol {
             pokemons.append(poke!)
         }
         self.pokeArray = pokemons
+//        print(pokemons)
         self.searchPokemon()
     }
     
