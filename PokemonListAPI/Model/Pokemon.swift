@@ -14,8 +14,9 @@ class Pokemon {
     let image: Data
     var types : String
     let description:String
+    let specie : String
     
-    init (name: String, image: Data, types: [String], description: String){
+    init (name: String, image: Data, types: [String], description: String, specie: String){
         self.name = name
         self.image = image
         
@@ -26,6 +27,7 @@ class Pokemon {
         }
         
         self.description = description
+        self.specie = specie
         
     }
     

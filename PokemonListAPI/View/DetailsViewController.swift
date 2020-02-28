@@ -16,7 +16,7 @@ class DetailsViewController: UIViewController {
     @IBOutlet weak var labelName: UILabel!
     @IBOutlet weak var labelTypes: UILabel!
     @IBOutlet weak var labelDescription: UILabel!
-    
+    @IBOutlet weak var labelSpecie: UILabel!
     
     //MARK: - Variables
     
@@ -32,6 +32,7 @@ class DetailsViewController: UIViewController {
             self.labelTypes.text = pokemon.types
             self.imageView.image = UIImage(data: pokemon.image)
             self.labelDescription.text = pokemon.description
+            self.labelSpecie.text = pokemon.specie
         })
     }
     

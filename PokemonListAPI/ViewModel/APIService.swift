@@ -57,15 +57,16 @@ class APIService {
         }
     }
     
-    func fetchPokedexEntry(pokemonIndex: Int, sucess : @escaping ([[String:Any]]) -> () ){
+    func fetchPokedexEntry(pokemonIndex: Int, sucess : @escaping ([[String:Any]], [[String:Any]]) -> () ){
         
         let urlEntrys = "https://pokeapi.co/api/v2/pokemon-species/\(pokemonIndex)/"
         Alamofire.request(urlEntrys).responseData { (response) in
             guard let data = response.data else { return }
             let json = try? JSONSerialization.jsonObject(with: data, options: [] ) as? [String:Any]
-            let entrysDicionaty = json!["flavor_text_entries"] as? [[String:Any]]
+            let entrysDicionary = json!["flavor_text_entries"] as? [[String:Any]]
+            let specieDicionary = json!["genera"] as? [ [String:Any] ]
             DispatchQueue.main.async {
-                sucess(entrysDicionaty!)
+                sucess(entrysDicionary!, specieDicionary!)
             }
             
         }

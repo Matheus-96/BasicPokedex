@@ -24,7 +24,7 @@
 
 /* Begin PBXFileReference section */
 		0A5BB0ED24080948003468B5 /* PokeListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokeListViewController.swift; sourceTree = "<group>"; };
-		0A89A51A24006129007754B5 /* PokemonListAPI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PokemonListAPI.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0A89A51A24006129007754B5 /* PokeList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PokeList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A89A51D24006129007754B5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0A89A51F24006129007754B5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		0A89A52424006129007754B5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -67,7 +67,7 @@
 		0A89A51B24006129007754B5 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0A89A51A24006129007754B5 /* PokemonListAPI.app */,
+				0A89A51A24006129007754B5 /* PokeList.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -152,7 +152,7 @@
 			);
 			name = PokemonListAPI;
 			productName = PokemonListAPI;
-			productReference = 0A89A51A24006129007754B5 /* PokemonListAPI.app */;
+			productReference = 0A89A51A24006129007754B5 /* PokeList.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -408,7 +408,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.cursoiOS11.PokemonListAPI;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = PokeList;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -426,7 +426,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.cursoiOS11.PokemonListAPI;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = PokeList;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
