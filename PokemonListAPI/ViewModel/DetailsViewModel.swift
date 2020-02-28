@@ -43,7 +43,7 @@ class DetailsViewModel : DetailsProtocol {
                     let specie = self.retriveSpecie(species: species)
                     let description = self.retrivePokedexText(dictionary: dictionary)
                     
-                    self.pokemon = Pokemon(name: self.name.firstUppercased, image: imageData, types: types, description: description, specie: specie)
+                    self.pokemon = Pokemon(id: self.pokemonID, name: self.name.firstUppercased, image: imageData, types: types, description: description, specie: specie)
                     handler(self.pokemon!)
                 }
             }

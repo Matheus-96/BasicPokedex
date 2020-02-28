@@ -17,6 +17,7 @@ class DetailsViewController: UIViewController {
     @IBOutlet weak var labelTypes: UILabel!
     @IBOutlet weak var labelDescription: UILabel!
     @IBOutlet weak var labelSpecie: UILabel!
+    @IBOutlet weak var nationalIndex: UILabel!
     
     //MARK: - Variables
     
@@ -28,6 +29,7 @@ class DetailsViewController: UIViewController {
         super.viewDidLoad()
         setUpOutlets()
         viewModel?.setDetails(handler: { (pokemon) in
+            self.nationalIndex.text = "#\(pokemon.nationalIndex)"
             self.labelName.text = pokemon.name
             self.labelTypes.text = pokemon.types
             self.imageView.image = UIImage(data: pokemon.image)

@@ -10,13 +10,17 @@ import Foundation
 
 class Pokemon {
     
+    let id : Int
     let name: String
     let image: Data
     var types : String
     let description:String
     let specie : String
+    let nationalIndex: String
     
-    init (name: String, image: Data, types: [String], description: String, specie: String){
+    init (id: Int, name: String, image: Data, types: [String], description: String, specie: String){
+        
+        self.id = id
         self.name = name
         self.image = image
         
@@ -28,6 +32,14 @@ class Pokemon {
         
         self.description = description
         self.specie = specie
+        
+        if id > 100 {
+            self.nationalIndex = "\(id)"
+        } else if id > 9 && id < 100 {
+            self.nationalIndex = "0\(id)"
+        } else {
+            self.nationalIndex = "00\(id)"
+        }
         
     }
     
